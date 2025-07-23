@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { MessageCircle, X, Phone } from 'lucide-react';
+import EnrollModal from './EnrollModal';
 
 const WhatsAppChat = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const whatsappNumber = '+919876543210'; // Replace with your actual WhatsApp number
+  const [isEnrollOpen, setIsEnrollOpen] = useState(false);
+  const whatsappNumber = '7095288950'; // Updated to your actual WhatsApp number
   
   const predefinedMessages = [
     {
@@ -93,6 +95,14 @@ const WhatsAppChat = () => {
                 <span>Start Chat</span>
               </button>
 
+              {/* New: Enroll Form Button */}
+              <button
+                onClick={() => setIsEnrollOpen(true)}
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white p-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
+              >
+                <span>Send Details to WhatsApp</span>
+              </button>
+
               {/* Call Option */}
               <button
                 onClick={() => window.open(`tel:${whatsappNumber}`, '_self')}
@@ -140,7 +150,11 @@ const WhatsAppChat = () => {
           </div>
         )}
       </div>
-
+      {/* EnrollModal for WhatsApp details */}
+      <EnrollModal
+        isOpen={isEnrollOpen}
+        onClose={() => setIsEnrollOpen(false)}
+      />
       {/* Custom Styles */}
       <style jsx>{`
         @keyframes fade-in {

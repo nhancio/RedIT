@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Brain, Database, Shield, Cloud, Code, Zap, ChevronRight, Clock, Users, Award } from 'lucide-react';
+import EnrollModal from './EnrollModal';
 
 const CoursesSection = () => {
   const [hoveredCourse, setHoveredCourse] = useState<number | null>(null);
+  const [isEnrollOpen, setIsEnrollOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<string | undefined>(undefined);
 
   const courses = [
     {
@@ -162,7 +165,13 @@ const CoursesSection = () => {
                     </div>
                   </div>
 
-                  <button className={`w-full bg-gradient-to-r ${course.gradient} text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group shadow-lg`}>
+                  <button
+                    className={`w-full bg-gradient-to-r ${course.gradient} text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group shadow-lg`}
+                    onClick={() => {
+                      setSelectedCourse(course.title);
+                      setIsEnrollOpen(true);
+                    }}
+                  >
                     <span>Enroll Now</span>
                     <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
@@ -178,6 +187,11 @@ const CoursesSection = () => {
           </button>
         </div>
       </div>
+      <EnrollModal
+        isOpen={isEnrollOpen}
+        onClose={() => setIsEnrollOpen(false)}
+        courseName={selectedCourse}
+      />
     </section>
   );
 };
