@@ -7,6 +7,7 @@ import ServicesSection from './components/ServicesSection';
 import PlacementCompanies from './components/PlacementCompanies';
 import PlacementProcess from './components/PlacementProcess';
 import SuccessStories from './components/SuccessStories';
+import FAQSection from './components/FAQSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import WhatsAppChat from './components/WhatsAppChat';
@@ -22,6 +23,7 @@ function App() {
       <PlacementCompanies />
       <PlacementProcess />
       <SuccessStories />
+      <FAQSection />
       <ContactSection />
       <Footer />
       <WhatsAppChat />

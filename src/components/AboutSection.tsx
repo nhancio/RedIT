@@ -74,13 +74,23 @@ const AboutSection = () => {
         <div id="about-section" className="text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              About RedDot IT Training
+              Why Generative AI Matters Today?
             </span>
           </h2>
-          <p className={`text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            Leading the future of technology education with industry-aligned curriculum, expert mentorship, 
-            and guaranteed placement support. Join thousands of successful professionals who transformed their careers with us.
-          </p>
+          <div className={`text-lg text-gray-300 max-w-5xl mx-auto leading-relaxed transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} space-y-4`}>
+            <p>
+              Generative AI is no longer optional knowledge; it is a career-defining skill. Tech giants and startups alike 
+              are hiring professionals who can programmatically work with Large Language Models (LLMs), automate tasks, 
+              analyze data intelligently, and build AI-powered applications. Even traditional roles such as software developers, 
+              analysts, testers, and data engineers are now expected to have at least a basic understanding of how AI systems work.
+            </p>
+            <p>
+              Knowing GenAI enables you to produce higher-quality work, solve problems faster, and create solutions that were 
+              previously impossible with traditional programming alone. This course prepares you not just to use AI tools but 
+              also to understand the underlying concepts that power them, giving you a strong advantage in any technical 
+              interview or workplace environment.
+            </p>
+          </div>
         </div>
 
         {/* Stats Section */}
@@ -105,33 +115,33 @@ const AboutSection = () => {
           })}
         </div>
 
-        {/* Why Choose Us */}
+        {/* Trainer Introduction */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div className={`space-y-6 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h3 className="text-3xl font-bold text-white mb-6">
-              Why Choose <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">RedDot IT Training?</span>
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Meet Your Trainer</span>
             </h3>
             
-            <div className="space-y-4">
-              {[
-                { icon: Target, title: '100% Placement Guarantee', desc: 'Get placed or get your money back - our commitment to your success' },
-                { icon: Award, title: 'Industry Expert Trainers', desc: 'Learn from professionals with 10+ years of real-world experience' },
-                { icon: Globe, title: 'Live Project Experience', desc: 'Work on real client projects and build an impressive portfolio' },
-                { icon: Users, title: 'Dedicated Career Support', desc: '1-on-1 mentoring, resume building, and interview preparation' }
-              ].map((feature, index) => {
-                const FeatureIcon = feature.icon;
-                return (
-                  <div key={feature.title} className="flex items-start space-x-4 p-4 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-300">
-                    <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500">
-                      <FeatureIcon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">{feature.title}</h4>
-                      <p className="text-gray-400 text-sm">{feature.desc}</p>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                The GenAI Mastery Program is led by a seasoned GenAI Trainer and Software Engineer with extensive experience 
+                in Python development, Large Language Models (LLMs), and real-world AI application design. Over the years, 
+                your trainer has worked with modern AI technologies, delivered corporate training sessions, and mentored 
+                students and professionals transitioning into AI-driven roles. With a passion for simplifying complex topics, 
+                the trainer ensures every concept is explained in a clear, structured, and practical manner.
+              </p>
+              <p>
+                Unlike conventional theoretical instructors, this program is taught by someone who actively builds AI solutions 
+                and understands the challenges faced by freshers and working employees alike. Whether you are beginning your 
+                journey in programming or looking to integrate AI into your professional workflow, you will be learning from 
+                a mentor who knows exactly what the industry demands and how to prepare you for it.
+              </p>
+              <p>
+                The trainer believes that learning becomes effective when students understand why a concept matters before 
+                learning how to use it. This philosophy shapes every module in the course—from foundational Python to advanced 
+                GenAI pipelines—ensuring that you gain deep conceptual clarity along with hands-on expertise. Under this 
+                mentorship, you will develop the technical confidence and practical problem-solving skills that top employers look for.
+              </p>
             </div>
           </div>
 
@@ -139,24 +149,14 @@ const AboutSection = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-3xl blur-xl"></div>
               <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700">
-                <h4 className="text-2xl font-bold text-white mb-6 text-center">Our Success Timeline</h4>
-                <div className="space-y-4">
-                  {[
-                    { year: '2014', event: 'Founded RedDot IT Training', color: 'from-blue-500 to-cyan-500' },
-                    { year: '2017', event: 'Reached 1000+ successful placements', color: 'from-green-500 to-teal-500' },
-                    { year: '2020', event: 'Expanded to 15+ technology domains', color: 'from-purple-500 to-pink-500' },
-                    { year: '2024', event: '5000+ students placed successfully', color: 'from-orange-500 to-red-500' }
-                  ].map((milestone, index) => (
-                    <div key={milestone.year} className="flex items-center space-x-4">
-                      <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${milestone.color} flex items-center justify-center text-white font-bold text-sm`}>
-                        {milestone.year.slice(-2)}
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-white font-semibold">{milestone.event}</div>
-                        <div className="text-gray-400 text-sm">{milestone.year}</div>
-                      </div>
-                    </div>
-                  ))}
+                <h4 className="text-2xl font-bold text-white mb-6 text-center">Who This Course Helps</h4>
+                <div className="space-y-4 text-gray-300 leading-relaxed">
+                  <p>
+                    This course is designed for students beginning their programming journey as well as professionals who want 
+                    to stay updated in the fast-changing tech world. Freshers will gain a strong foundation that prepares them 
+                    for placement opportunities, while working employees will learn advanced tools and techniques that enhance 
+                    their productivity and open new doors in AI-driven job roles.
+                  </p>
                 </div>
               </div>
             </div>
