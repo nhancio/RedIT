@@ -2,25 +2,34 @@ import React from 'react';
 
 const PlacementCompanies = () => {
   const companies = [
-    { name: 'Google', logo: '🔵', sector: 'Tech Giant' },
-    { name: 'Microsoft', logo: '🟦', sector: 'Software' },
-    { name: 'Amazon', logo: '🟠', sector: 'E-commerce' },
-    { name: 'Infosys', logo: '🟣', sector: 'IT Services' },
-    { name: 'TCS', logo: '🔷', sector: 'Consulting' },
-    { name: 'Wipro', logo: '🟢', sector: 'IT Services' },
-    { name: 'Accenture', logo: '🟡', sector: 'Consulting' },
-    { name: 'IBM', logo: '🔴', sector: 'Technology' },
-    { name: 'Deloitte', logo: '⚫', sector: 'Consulting' },
-    { name: 'HCL', logo: '🟤', sector: 'IT Services' },
-    { name: 'Cognizant', logo: '🔵', sector: 'IT Services' },
-    { name: 'Capgemini', logo: '🟦', sector: 'Consulting' }
+    { 
+      name: 'Google', 
+      sector: 'Tech Giant' 
+    },
+    { 
+      name: 'Microsoft', 
+      sector: 'Software' 
+    },
+    { 
+      name: 'Amazon', 
+      sector: 'E-commerce' 
+    },
+    { 
+      name: 'Infosys', 
+      sector: 'IT Services' 
+    },
+    { 
+      name: 'Accenture', 
+      sector: 'Consulting' 
+    },
+    { 
+      name: 'IBM', 
+      sector: 'Technology' 
+    }
   ];
 
-  // Duplicate companies for seamless loop
-  const duplicatedCompanies = [...companies, ...companies];
-
   return (
-    <section id="placements" className="py-20 bg-gradient-to-br from-slate-800 to-slate-900 overflow-hidden">
+    <section id="placements" className="py-20 bg-gradient-to-br from-slate-800 to-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -34,21 +43,18 @@ const PlacementCompanies = () => {
           </p>
         </div>
 
-        {/* Auto-scrolling companies */}
-        <div className="relative">
-          {/* Gradient overlays for smooth edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-800 to-transparent z-10"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-800 to-transparent z-10"></div>
-          
-          <div className="flex space-x-8 animate-scroll">
-            {duplicatedCompanies.map((company, index) => (
-              <div
-                key={`${company.name}-${index}`}
-                className="flex-shrink-0 group"
-              >
-                <div className="flex flex-col items-center space-y-3 p-6 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 hover:border-purple-500/50 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 min-w-[180px]">
-                  <div className="text-4xl mb-2 transform group-hover:scale-110 transition-transform duration-300">
-                    {company.logo}
+        {/* Companies Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          {companies.map((company, index) => (
+            <div
+              key={`${company.name}-${index}`}
+              className="group"
+            >
+              <div className="flex flex-col items-center space-y-3 p-6 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 hover:border-purple-500/50 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
+                  <div className="h-16 w-32 mb-2 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-5xl font-bold text-white opacity-80 group-hover:opacity-100 transition-opacity">
+                      {company.name.charAt(0)}
+                    </div>
                   </div>
                   <div className="text-center">
                     <h3 className="text-lg font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">
@@ -59,7 +65,6 @@ const PlacementCompanies = () => {
                 </div>
               </div>
             ))}
-          </div>
         </div>
 
         {/* Statistics */}
@@ -99,26 +104,6 @@ const PlacementCompanies = () => {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        
-        .animate-scroll {
-          animation: scroll 30s linear infinite;
-          width: calc(180px * ${companies.length} + 32px * ${companies.length - 1});
-        }
-        
-        .animate-scroll:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 };

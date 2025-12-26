@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FileText, MessageSquare, Users, Briefcase, UserCheck, Target } from 'lucide-react';
 
 const ServicesSection = () => {
+  const [hoveredService, setHoveredService] = useState<string | null>(null);
+  
   const services = [
     {
       icon: FileText,
@@ -68,8 +70,10 @@ const ServicesSection = () => {
             return (
               <div
                 key={service.title}
-                className="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-slate-700 hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/25"
+                className="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700 hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/25"
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onMouseEnter={() => setHoveredService(service.title)}
+                onMouseLeave={() => setHoveredService(null)}
               >
                 {/* Gradient overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
@@ -88,23 +92,19 @@ const ServicesSection = () => {
                     {service.description}
                   </p>
 
-                  <div className="space-y-3">
-                    <h4 className="text-white font-semibold mb-3">Key Features:</h4>
-                    <ul className="space-y-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center space-x-2 text-gray-300">
-                          <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.gradient}`}></div>
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="mt-8">
-                    <button className={`w-full bg-gradient-to-r ${service.gradient} text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl`}>
-                      Learn More
-                    </button>
-                  </div>
+                  {hoveredService === service.title && (
+                    <div className="space-y-3 mt-4 animate-fade-in">
+                      <h4 className="text-white font-semibold mb-3">Key Features:</h4>
+                      <ul className="space-y-2">
+                        {service.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center space-x-2 text-gray-300">
+                            <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.gradient}`}></div>
+                            <span className="text-sm">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
 
                 {/* Animated border */}
@@ -126,7 +126,13 @@ const ServicesSection = () => {
               ranging from ₹3L to ₹25L per annum.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105">
+              <button 
+                onClick={() => {
+                  const coursesSection = document.getElementById('courses');
+                  coursesSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105"
+              >
                 Start Your Journey
               </button>
               <button className="border-2 border-purple-400 text-purple-400 px-8 py-4 rounded-xl font-semibold hover:bg-purple-400 hover:text-white transition-all duration-300 transform hover:scale-105">

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Send, CheckCircle, X } from 'lucide-react';
-import { otpService } from '../services/otpService';
+import React, { useState, useEffect } from 'react';
+import { Send, X } from 'lucide-react';
+import { emailService } from '../services/emailService';
 
 interface EnrollModalProps {
   isOpen: boolean;
@@ -8,85 +8,57 @@ interface EnrollModalProps {
   courseName?: string;
 }
 
-const whatsappNumber = '7095288950';
-
 const EnrollModal: React.FC<EnrollModalProps> = ({ isOpen, onClose, courseName }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [message, setMessage] = useState('');
-  const [isOtpSent, setIsOtpSent] = useState(false);
-  const [otp, setOtp] = useState('');
-  const [isVerified, setIsVerified] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [otpMessage, setOtpMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
 
-  const handleSendOtp = async () => {
-    if (phoneNumber.length !== 10) {
-      setOtpMessage('Please enter a valid 10-digit phone number');
-      return;
-    }
-    setIsLoading(true);
-    setOtpMessage('');
-    try {
-      otpService.initializeRecaptcha('recaptcha-container-enroll');
-      const result = await otpService.sendOTP(phoneNumber);
-      if (result.success) {
-        setIsOtpSent(true);
-        setOtpMessage('OTP sent successfully to your phone!');
-      } else {
-        setOtpMessage(result.message);
-      }
-    } catch (error) {
-      setOtpMessage('Failed to send OTP. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    emailService.init();
+  }, []);
 
-  const handleVerifyOtp = async () => {
-    if (otp.length !== 6) {
-      setOtpMessage('Please enter a valid 6-digit OTP');
-      return;
-    }
-    setIsLoading(true);
-    setOtpMessage('');
-    try {
-      const result = await otpService.verifyOTP(otp);
-      if (result.success) {
-        setIsVerified(true);
-        setOtpMessage('Phone number verified successfully!');
-      } else {
-        setOtpMessage(result.message);
-      }
-    } catch (error) {
-      setOtpMessage('Failed to verify OTP. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isVerified) {
-      setOtpMessage('Please verify your phone number first.');
+    
+    if (!name || !email || !phoneNumber || !message) {
+      setSubmitMessage('Please fill in all required fields.');
       return;
     }
-    // Compose WhatsApp message
-    const msg = `New Enrollment Request:%0AName: ${name}%0AEmail: ${email}%0APhone: ${phoneNumber}%0ACourse: ${courseName || ''}%0AMessage: ${message}`;
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${msg}`;
-    window.open(whatsappUrl, '_blank');
-    onClose();
-    // Optionally, reset form here
-    setName('');
-    setEmail('');
-    setPhoneNumber('');
-    setMessage('');
-    setIsOtpSent(false);
-    setOtp('');
-    setIsVerified(false);
-    setOtpMessage('');
-    otpService.reset();
+
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    try {
+      const emailResult = await emailService.sendEnrollmentForm({
+        name,
+        email,
+        phone: phoneNumber,
+        message,
+        course: courseName || 'Not specified'
+      });
+
+      if (emailResult.success) {
+        setSubmitMessage(emailResult.message);
+        setTimeout(() => {
+          onClose();
+          // Reset form
+          setName('');
+          setEmail('');
+          setPhoneNumber('');
+          setMessage('');
+          setSubmitMessage('');
+        }, 2000);
+      } else {
+        setSubmitMessage(emailResult.message);
+      }
+    } catch (error) {
+      setSubmitMessage('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -123,64 +95,15 @@ const EnrollModal: React.FC<EnrollModalProps> = ({ isOpen, onClose, courseName }
           </div>
           <div>
             <label className="block text-gray-300 text-sm font-medium mb-2">Phone Number</label>
-            <div className="flex space-x-2">
-              <input
-                type="tel"
-                value={phoneNumber}
-                onChange={e => setPhoneNumber(e.target.value)}
-                className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-300"
-                placeholder="Enter 10-digit mobile number"
-                maxLength={10}
-                disabled={isVerified}
-                required
-              />
-              {!isVerified && (
-                <button
-                  type="button"
-                  onClick={handleSendOtp}
-                  disabled={phoneNumber.length !== 10 || isLoading}
-                  className="px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? 'Sending...' : isOtpSent ? 'Sent' : 'Send OTP'}
-                </button>
-              )}
-              {isVerified && (
-                <div className="flex items-center px-4 py-3 bg-green-600/20 border border-green-600/30 rounded-xl text-green-400">
-                  <CheckCircle className="w-5 h-5 mr-2" />
-                  <span>Verified</span>
-                </div>
-              )}
-            </div>
+            <input
+              type="tel"
+              value={phoneNumber}
+              onChange={e => setPhoneNumber(e.target.value)}
+              className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-300"
+              placeholder="Enter your phone number"
+              required
+            />
           </div>
-          {isOtpSent && !isVerified && (
-            <div className="animate-fade-in">
-              <label className="block text-gray-300 text-sm font-medium mb-2">Enter OTP</label>
-              <div className="flex space-x-2">
-                <input
-                  type="text"
-                  value={otp}
-                  onChange={e => setOtp(e.target.value)}
-                  className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all duration-300 animate-bounce"
-                  placeholder="Enter 6-digit OTP"
-                  maxLength={6}
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={handleVerifyOtp}
-                  disabled={otp.length !== 6 || isLoading}
-                  className="px-6 py-3 bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50"
-                >
-                  {isLoading ? 'Verifying...' : 'Verify'}
-                </button>
-              </div>
-              {otpMessage && (
-                <p className={`text-sm mt-2 ${otpMessage.includes('success') ? 'text-green-400' : 'text-red-400'}`}>
-                  {otpMessage}
-                </p>
-              )}
-            </div>
-          )}
           <div>
             <label className="block text-gray-300 text-sm font-medium mb-2">Message</label>
             <textarea
@@ -192,16 +115,20 @@ const EnrollModal: React.FC<EnrollModalProps> = ({ isOpen, onClose, courseName }
               required
             ></textarea>
           </div>
+          {submitMessage && (
+            <p className={`text-sm ${submitMessage.includes('success') ? 'text-green-400' : 'text-yellow-400'}`}>
+              {submitMessage}
+            </p>
+          )}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group"
+            disabled={isSubmitting}
+            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span>Send to WhatsApp</span>
+            <span>{isSubmitting ? 'Submitting...' : 'Submit Enrollment'}</span>
             <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
-        {/* Hidden reCAPTCHA container */}
-        <div id="recaptcha-container-enroll"></div>
       </div>
     </div>
   );

@@ -1,67 +1,52 @@
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Send, CheckCircle } from 'lucide-react';
-import { otpService } from '../services/otpService';
+import React, { useState, useEffect } from 'react';
+import { Phone, Mail, MapPin, Send } from 'lucide-react';
+import { emailService } from '../services/emailService';
 
 const ContactSection = () => {
+  const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [isOtpSent, setIsOtpSent] = useState(false);
-  const [otp, setOtp] = useState('');
-  const [isVerified, setIsVerified] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [otpMessage, setOtpMessage] = useState('');
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSendOtp = async () => {
-    if (phoneNumber.length !== 10) {
-      setOtpMessage('Please enter a valid 10-digit phone number');
+  useEffect(() => {
+    emailService.init();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!name || !email || !phoneNumber || !message) {
+      setSubmitMessage('Please fill in all required fields.');
       return;
     }
 
-    setIsLoading(true);
-    setOtpMessage('');
+    setIsSubmitting(true);
+    setSubmitMessage('');
 
     try {
-      // Initialize reCAPTCHA
-      otpService.initializeRecaptcha('recaptcha-container');
-      
-      const result = await otpService.sendOTP(phoneNumber);
-      
+      const result = await emailService.sendContactForm({
+        name,
+        email,
+        phone: phoneNumber,
+        message
+      });
+
       if (result.success) {
-        setIsOtpSent(true);
-        setOtpMessage('OTP sent successfully to your phone!');
+        setSubmitMessage(result.message);
+        // Reset form
+        setName('');
+        setEmail('');
+        setPhoneNumber('');
+        setMessage('');
       } else {
-        setOtpMessage(result.message);
+        setSubmitMessage(result.message);
       }
     } catch (error) {
-      setOtpMessage('Failed to send OTP. Please try again.');
+      setSubmitMessage('An error occurred. Please try again later.');
     } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleVerifyOtp = async () => {
-    if (otp.length !== 6) {
-      setOtpMessage('Please enter a valid 6-digit OTP');
-      return;
-    }
-
-    setIsLoading(true);
-    setOtpMessage('');
-
-    try {
-      const result = await otpService.verifyOTP(otp);
-      
-      if (result.success) {
-        setIsVerified(true);
-        setOtpMessage('Phone number verified successfully!');
-      } else {
-        setOtpMessage(result.message);
-      }
-    } catch (error) {
-      setOtpMessage('Failed to verify OTP. Please try again.');
-    } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -106,14 +91,17 @@ const ContactSection = () => {
             <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700">
               <h3 className="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
               
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">Full Name</label>
                     <input
                       type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
                       placeholder="Enter your full name"
+                      required
                     />
                   </div>
                   <div>
@@ -124,71 +112,23 @@ const ContactSection = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 transform focus:scale-105"
                       placeholder="Enter your email"
+                      required
                     />
                   </div>
                 </div>
 
-                {/* Phone Number with OTP */}
+                {/* Phone Number */}
                 <div>
                   <label className="block text-gray-300 text-sm font-medium mb-2">Phone Number</label>
-                  <div className="flex space-x-2">
-                    <input
-                      type="tel"
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-300"
-                      placeholder="Enter 10-digit mobile number"
-                      maxLength={10}
-                      disabled={isVerified}
-                    />
-                    {!isVerified && (
-                      <button
-                        type="button"
-                        onClick={handleSendOtp}
-                        disabled={phoneNumber.length !== 10 || isLoading}
-                        className="px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {isLoading ? 'Sending...' : isOtpSent ? 'Sent' : 'Send OTP'}
-                      </button>
-                    )}
-                    {isVerified && (
-                      <div className="flex items-center px-4 py-3 bg-green-600/20 border border-green-600/30 rounded-xl text-green-400">
-                        <CheckCircle className="w-5 h-5 mr-2" />
-                        <span>Verified</span>
-                      </div>
-                    )}
-                  </div>
+                  <input
+                    type="tel"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-300"
+                    placeholder="Enter your phone number"
+                    required
+                  />
                 </div>
-
-                {/* OTP Input */}
-                {isOtpSent && !isVerified && (
-                  <div className="animate-fade-in">
-                    <label className="block text-gray-300 text-sm font-medium mb-2">Enter OTP</label>
-                    <div className="flex space-x-2">
-                      <input
-                        type="text"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
-                        className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all duration-300 animate-bounce"
-                        placeholder="Enter 6-digit OTP"
-                        maxLength={6}
-                      />
-                      <button
-                        type="button"
-                        onClick={handleVerifyOtp}
-                        disabled={otp.length !== 6 || isLoading}
-                        className="px-6 py-3 bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50"
-                      >
-                        {isLoading ? 'Verifying...' : 'Verify'}
-                      </button>
-                    </div>
-                    {otpMessage && (
-                      <p className={`text-sm mt-2 ${otpMessage.includes('success') ? 'text-green-400' : 'text-red-400'}`}>
-                        {otpMessage}
-                      </p>
-                    )}
-                  </div>
-                )}
 
                 <div>
                   <label className="block text-gray-300 text-sm font-medium mb-2">Message</label>
@@ -201,18 +141,21 @@ const ContactSection = () => {
                   ></textarea>
                 </div>
 
+                {submitMessage && (
+                  <p className={`text-sm ${submitMessage.includes('success') ? 'text-green-400' : 'text-red-400'}`}>
+                    {submitMessage}
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span>Send Message</span>
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                   <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </form>
             </div>
-            
-            {/* Hidden reCAPTCHA container */}
-            <div id="recaptcha-container"></div>
           </div>
 
           {/* Contact Information */}
@@ -241,20 +184,6 @@ const ContactSection = () => {
                 </div>
               );
             })}
-
-            {/* Google Map Placeholder */}
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700">
-              <h3 className="text-xl font-bold text-white mb-4">Find Us</h3>
-              <div className="aspect-w-16 aspect-h-9 bg-slate-700 rounded-xl overflow-hidden">
-                <div className="w-full h-48 bg-gradient-to-br from-blue-600/20 to-purple-600/20 flex items-center justify-center text-gray-400 rounded-xl">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 mx-auto mb-2 text-purple-400" />
-                    <p>Interactive Map</p>
-                    <p className="text-sm">Electronic City, Bangalore</p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             {/* Quick Stats */}
             <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-2xl p-6 border border-purple-500/30">
