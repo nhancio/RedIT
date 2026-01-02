@@ -30,11 +30,8 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: 'https://www.facebook.com/reddotit', color: 'from-red-600 to-red-500' },
-    { icon: Twitter, href: 'https://www.twitter.com/reddotit', color: 'from-red-500 to-yellow-500' },
-    { icon: Instagram, href: 'https://www.instagram.com/reddotit', color: 'from-red-600 to-yellow-600' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/company/reddotit', color: 'from-red-700 to-yellow-500' },
-    { icon: Youtube, href: 'https://www.youtube.com/@reddotit', color: 'from-red-600 to-red-500' }
+    { icon: Instagram, href: 'https://www.instagram.com/thereddotcareers', color: 'from-red-600 to-yellow-600' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/thereddotcareers/', color: 'from-red-700 to-yellow-500' }
   ];
 
   return (
