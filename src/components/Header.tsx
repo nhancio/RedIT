@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 
 const Header = () => {
@@ -14,13 +14,19 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-gradient-to-r from-slate-900/95 to-purple-900/95 backdrop-blur-sm z-50 border-b border-purple-500/20">
+    <header className="fixed top-0 w-full bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-sm z-50 border-b border-red-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              RedDot IT Training
-            </h1>
+          <div className="flex-shrink-0 flex items-center">
+            <img 
+              src="/IT_training-1.png" 
+              alt="RedDot IT Training Logo" 
+              className="h-12 w-auto sm:h-16 md:h-20"
+              onError={(e) => {
+                // Fallback if image doesn't load
+                (e.target as HTMLImageElement).style.display = 'none';
+              }}
+            />
           </div>
           
           <nav className="hidden md:flex space-x-8">
@@ -31,7 +37,7 @@ const Header = () => {
                 className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-105 relative group"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-yellow-500 group-hover:w-full transition-all duration-300"></span>
               </a>
             ))}
           </nav>
@@ -39,11 +45,11 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-sm text-gray-300">
               <Phone className="w-4 h-4" />
-              <span>+91 98765 43210</span>
+              <a href="tel:+917095288950" className="hover:text-red-400 transition-colors">+91 70952 88950</a>
             </div>
             <div className="flex items-center space-x-2 text-sm text-gray-300">
               <Mail className="w-4 h-4" />
-              <span>info@reddotit.com</span>
+              <a href="mailto:info@reddotit.com" className="hover:text-red-400 transition-colors">info@reddotit.com</a>
             </div>
           </div>
 
@@ -60,18 +66,28 @@ const Header = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-slate-900/95 backdrop-blur-sm border-t border-purple-500/20">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden bg-black/95 backdrop-blur-sm border-t border-red-500/20">
+          <div className="px-4 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-2 text-gray-300 hover:text-white transition-colors"
+                className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-red-500/10 rounded-lg transition-all text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </a>
             ))}
+            <div className="pt-4 mt-4 border-t border-red-500/20 px-4 space-y-2">
+              <a href="tel:+917095288950" className="flex items-center space-x-2 text-sm text-gray-300 hover:text-red-400 transition-colors">
+                <Phone className="w-4 h-4" />
+                <span>+91 70952 88950</span>
+              </a>
+              <a href="mailto:info@reddotit.com" className="flex items-center space-x-2 text-sm text-gray-300 hover:text-red-400 transition-colors">
+                <Mail className="w-4 h-4" />
+                <span>info@reddotit.com</span>
+              </a>
+            </div>
           </div>
         </div>
       )}

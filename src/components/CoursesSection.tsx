@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { Brain, Database, Shield, Cloud, Code, Zap, ChevronRight, Clock, Users, Award, Target } from 'lucide-react';
+import { useState } from 'react';
+import { Brain, Database, Code, Zap, ChevronRight, Clock, Users, Award, Target } from 'lucide-react';
 import EnrollModal from './EnrollModal';
 
 const CoursesSection = () => {
-  const [hoveredCourse, setHoveredCourse] = useState<number | null>(null);
   const [isEnrollOpen, setIsEnrollOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<string | undefined>(undefined);
 
@@ -66,11 +65,11 @@ const CoursesSection = () => {
   ];
 
   return (
-    <section id="courses" className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <section id="courses" className="py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
               Course Modules
             </span>
           </h2>
@@ -86,9 +85,7 @@ const CoursesSection = () => {
             return (
               <div
                 key={course.id}
-                className="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-slate-700 hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/25"
-                onMouseEnter={() => setHoveredCourse(course.id)}
-                onMouseLeave={() => setHoveredCourse(null)}
+                className="group relative bg-gradient-to-br from-gray-900 to-black rounded-2xl border-2 border-red-500/30 hover:border-red-500 transition-all duration-300"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Gradient overlay */}
@@ -105,7 +102,7 @@ const CoursesSection = () => {
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-red-500 group-hover:to-yellow-500 group-hover:bg-clip-text transition-all duration-300">
                     {course.title}
                   </h3>
                   
@@ -126,13 +123,6 @@ const CoursesSection = () => {
                     </div>
                   </div>
 
-                  {/* Expanded content on hover */}
-                  <div className={`transition-all duration-500 ${hoveredCourse === course.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-                    <div className="border-t border-slate-700 pt-4 mb-4">
-                      <p className="text-gray-300 text-sm leading-relaxed">{course.details}</p>
-                    </div>
-                  </div>
-
                   <button
                     className={`w-full bg-gradient-to-r ${course.gradient} text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group shadow-lg`}
                     onClick={() => {
@@ -150,11 +140,11 @@ const CoursesSection = () => {
         </div>
 
         {/* Basic Overview Section */}
-        <div className="mt-16 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700">
+        <div className="mt-16 bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 border-2 border-red-500/30">
           <h3 className="text-3xl font-bold text-white mb-6 text-center">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Basic Overview: Introduction to Generative AI
-            </span>
+              <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
+                Basic Overview: Introduction to Generative AI
+              </span>
           </h3>
           <div className="grid md:grid-cols-2 gap-8 text-gray-300">
             <div>

@@ -57,38 +57,45 @@ const AboutSection = () => {
     { icon: TrendingUp, label: 'Years Experience', value: counters.experience, suffix: '+' }
   ];
 
-  const companies = [
-    { name: 'Google', logo: '🔵' },
-    { name: 'Microsoft', logo: '🟦' },
-    { name: 'Amazon', logo: '🟠' },
-    { name: 'Infosys', logo: '🟣' },
-    { name: 'TCS', logo: '🔷' },
-    { name: 'Wipro', logo: '🟢' },
-    { name: 'Accenture', logo: '🟡' },
-    { name: 'IBM', logo: '🔴' }
-  ];
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-slate-800 to-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-20 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff0000' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+        }}></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div id="about-section" className="text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Why Generative AI Matters Today?
+            <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
+              About RedDot IT Training
             </span>
           </h2>
           <div className={`text-lg text-gray-300 max-w-5xl mx-auto leading-relaxed transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} space-y-4`}>
             <p>
-              Generative AI is no longer optional knowledge; it is a career-defining skill. Tech giants and startups alike 
-              are hiring professionals who can programmatically work with Large Language Models (LLMs), automate tasks, 
-              analyze data intelligently, and build AI-powered applications. Even traditional roles such as software developers, 
-              analysts, testers, and data engineers are now expected to have at least a basic understanding of how AI systems work.
+              RedDot IT Training & Placement Services is a leading technology training institute dedicated to transforming careers 
+              through cutting-edge education in Artificial Intelligence, Machine Learning, Generative AI, and Software Development. 
+              With over 10 years of excellence, we have successfully placed 5000+ students in top-tier companies with packages 
+              ranging from ₹3L to ₹25L per annum.
             </p>
             <p>
-              Knowing GenAI enables you to produce higher-quality work, solve problems faster, and create solutions that were 
-              previously impossible with traditional programming alone. This course prepares you not just to use AI tools but 
-              also to understand the underlying concepts that power them, giving you a strong advantage in any technical 
-              interview or workplace environment.
+              Our mission is to bridge the gap between industry requirements and academic knowledge by providing hands-on, 
+              project-based training that prepares students for real-world challenges. We believe in empowering individuals 
+              with the skills needed to excel in the rapidly evolving tech landscape, whether they are fresh graduates starting 
+              their journey or working professionals looking to upskill.
+            </p>
+            <p>
+              What sets us apart is our comprehensive approach: from foundational programming skills to advanced AI concepts, 
+              from technical interview preparation to placement assistance, we provide end-to-end career transformation services. 
+              Our expert trainers, with 12+ years of industry experience, ensure that every student receives personalized 
+              attention and mentorship throughout their learning journey.
+            </p>
+            <p>
+              At RedDot IT, we don't just teach technology—we build careers. Our proven placement methodology, extensive industry 
+              connections, and commitment to student success have made us a trusted partner for thousands of aspiring tech 
+              professionals across India.
             </p>
           </div>
         </div>
@@ -100,10 +107,10 @@ const AboutSection = () => {
             return (
               <div
                 key={stat.label}
-                className={`text-center p-6 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 hover:border-purple-500/50 transition-all duration-500 transform hover:scale-105 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                className={`text-center p-6 rounded-2xl bg-gradient-to-br from-gray-900 to-black border-2 border-red-500/30 hover:border-red-500 transition-all duration-500 transform hover:scale-105 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: `${index * 0.2}s` }}
               >
-                <div className="inline-flex p-4 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 mb-4 shadow-lg">
+                <div className="inline-flex p-4 rounded-full bg-gradient-to-br from-red-500 to-yellow-500 mb-4 shadow-lg">
                   <IconComponent className="w-8 h-8 text-white" />
                 </div>
                 <div className="text-3xl md:text-4xl font-bold text-white mb-2">
@@ -119,28 +126,26 @@ const AboutSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div className={`space-y-6 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h3 className="text-3xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Meet Your Trainer</span>
+              <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">Why Generative AI Matters Today?</span>
             </h3>
             
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                The GenAI Mastery Program is led by a seasoned GenAI Trainer and Software Engineer with extensive experience 
-                in Python development, Large Language Models (LLMs), and real-world AI application design. Over the years, 
-                your trainer has worked with modern AI technologies, delivered corporate training sessions, and mentored 
-                students and professionals transitioning into AI-driven roles. With a passion for simplifying complex topics, 
-                the trainer ensures every concept is explained in a clear, structured, and practical manner.
+                Generative AI is no longer optional knowledge; it is a career-defining skill. Tech giants and startups alike 
+                are hiring professionals who can programmatically work with Large Language Models (LLMs), automate tasks, 
+                analyze data intelligently, and build AI-powered applications. Even traditional roles such as software developers, 
+                analysts, testers, and data engineers are now expected to have at least a basic understanding of how AI systems work.
               </p>
               <p>
-                Unlike conventional theoretical instructors, this program is taught by someone who actively builds AI solutions 
-                and understands the challenges faced by freshers and working employees alike. Whether you are beginning your 
-                journey in programming or looking to integrate AI into your professional workflow, you will be learning from 
-                a mentor who knows exactly what the industry demands and how to prepare you for it.
+                Knowing GenAI enables you to produce higher-quality work, solve problems faster, and create solutions that were 
+                previously impossible with traditional programming alone. This course prepares you not just to use AI tools but 
+                also to understand the underlying concepts that power them, giving you a strong advantage in any technical 
+                interview or workplace environment.
               </p>
               <p>
-                The trainer believes that learning becomes effective when students understand why a concept matters before 
-                learning how to use it. This philosophy shapes every module in the course—from foundational Python to advanced 
-                GenAI pipelines—ensuring that you gain deep conceptual clarity along with hands-on expertise. Under this 
-                mentorship, you will develop the technical confidence and practical problem-solving skills that top employers look for.
+                Our GenAI Mastery Program is led by seasoned trainers with 12+ years of experience in Python development, 
+                Large Language Models (LLMs), and real-world AI application design. They have worked with modern AI technologies, 
+                delivered corporate training sessions, and mentored thousands of students transitioning into AI-driven roles.
               </p>
             </div>
           </div>
@@ -148,7 +153,7 @@ const AboutSection = () => {
           <div className={`transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-3xl blur-xl"></div>
-              <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700">
+              <div className="relative bg-gradient-to-br from-gray-900 to-black p-8 rounded-3xl border-2 border-red-500/30">
                 <h4 className="text-2xl font-bold text-white mb-6 text-center">Who This Course Helps</h4>
                 <div className="space-y-4 text-gray-300 leading-relaxed">
                   <p>
@@ -163,24 +168,6 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Partner Companies */}
-        <div className={`text-center transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h3 className="text-3xl font-bold text-white mb-8">
-            Trusted by <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Top Companies</span>
-          </h3>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-70">
-            {companies.map((company, index) => (
-              <div
-                key={company.name}
-                className="flex items-center space-x-3 p-4 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-300 transform hover:scale-105"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <span className="text-2xl">{company.logo}</span>
-                <span className="text-gray-300 font-medium">{company.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

@@ -44,11 +44,11 @@ const PlacementProcess = () => {
   }, [steps.length]);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
               How Our Placement Program Works?
             </span>
           </h2>
@@ -81,12 +81,12 @@ const PlacementProcess = () => {
                     </div>
 
                     {/* Card */}
-                    <div className={`mt-8 p-6 rounded-2xl border transition-all duration-500 ${isActive ? 'bg-gradient-to-br from-slate-700 to-slate-800 border-purple-500/50 shadow-2xl shadow-purple-500/25' : 'bg-gradient-to-br from-slate-800 to-slate-900 border-slate-600 hover:border-slate-500'}`}>
+                    <div className={`mt-8 p-6 rounded-2xl border-2 transition-all duration-500 ${isActive ? 'bg-gradient-to-br from-gray-900 to-black border-red-500 shadow-2xl shadow-red-500/25' : 'bg-gradient-to-br from-gray-900 to-black border-red-500/30 hover:border-red-500'}`}>
                       <div className="text-center mb-4">
                         <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${step.color} shadow-lg mb-4 ${isActive ? 'animate-bounce' : ''}`}>
                           <IconComponent className="w-6 h-6 text-white" />
                         </div>
-                        <h3 className={`text-lg font-bold mb-3 ${isActive ? 'text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text' : 'text-white'}`}>
+                        <h3 className={`text-lg font-bold mb-3 ${isActive ? 'text-transparent bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text' : 'text-white'}`}>
                           {step.title}
                         </h3>
                         <p className="text-gray-400 text-sm leading-relaxed mb-4">
@@ -130,7 +130,7 @@ const PlacementProcess = () => {
                   </div>
                   
                   <div className="flex-1 pb-8">
-                    <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-600 hover:border-purple-500/50 transition-all duration-300">
+                    <div className="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-6 border-2 border-red-500/30 hover:border-red-500 transition-all duration-300">
                       <div className="flex items-center space-x-3 mb-4">
                         <div className={`p-2 rounded-lg bg-gradient-to-r ${step.color}`}>
                           <IconComponent className="w-5 h-5 text-white" />
@@ -167,7 +167,7 @@ const PlacementProcess = () => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-2xl p-8 border border-purple-500/30">
+          <div className="bg-gradient-to-r from-gray-900/50 to-black/50 rounded-2xl p-8 border-2 border-red-500/30">
             <h3 className="text-3xl font-bold text-white mb-4">
               Ready to Start Your Placement Journey?
             </h3>
@@ -176,10 +176,31 @@ const PlacementProcess = () => {
               up to ₹25L per annum.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105">
+              <button 
+                onClick={() => {
+                  if ((window as any).openEnrollModal) {
+                    (window as any).openEnrollModal();
+                  } else {
+                    const contactSection = document.getElementById('contact');
+                    contactSection?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="bg-gradient-to-r from-red-600 to-yellow-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-red-500/25 transition-all duration-300 transform hover:scale-105"
+              >
                 Enroll in Placement Program
               </button>
-              <button className="border-2 border-purple-400 text-purple-400 px-8 py-4 rounded-xl font-semibold hover:bg-purple-400 hover:text-white transition-all duration-300 transform hover:scale-105">
+              <button 
+                onClick={() => {
+                  const storiesSection = document.getElementById('success-stories');
+                  if (storiesSection) {
+                    storiesSection.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    // Fallback: try to find by class or scroll to bottom
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                  }
+                }}
+                className="border-2 border-red-400 text-red-400 px-8 py-4 rounded-xl font-semibold hover:bg-red-400 hover:text-white transition-all duration-300 transform hover:scale-105"
+              >
                 View Success Stories
               </button>
             </div>

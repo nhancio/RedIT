@@ -36,14 +36,14 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="faq" className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <section id="faq" className="py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center p-3 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 mb-6">
+          <div className="inline-flex items-center justify-center p-3 rounded-full bg-gradient-to-br from-red-500 to-yellow-500 mb-6">
             <HelpCircle className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
               Frequently Asked Questions
             </span>
           </h2>
@@ -56,17 +56,17 @@ const FAQSection = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-700 overflow-hidden transition-all duration-300 hover:border-purple-500/50"
+              className="bg-gradient-to-br from-gray-900 to-black rounded-xl border-2 border-red-500/30 overflow-hidden transition-all duration-300 hover:border-red-500"
             >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-6 py-5 text-left flex items-center justify-between focus:outline-none group"
               >
-                <span className="text-lg font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300 pr-4">
+                <span className="text-lg font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-red-500 group-hover:to-yellow-500 group-hover:bg-clip-text transition-all duration-300 pr-4">
                   {faq.question}
                 </span>
                 <ChevronDown
-                  className={`w-5 h-5 text-purple-400 flex-shrink-0 transition-transform duration-300 ${
+                  className={`w-5 h-5 text-red-400 flex-shrink-0 transition-transform duration-300 ${
                     openIndex === index ? 'transform rotate-180' : ''
                   }`}
                 />

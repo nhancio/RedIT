@@ -29,11 +29,11 @@ const PlacementCompanies = () => {
   ];
 
   return (
-    <section id="placements" className="py-20 bg-gradient-to-br from-slate-800 to-slate-900">
+    <section id="placements" className="py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
               Top Placement Partners
             </span>
           </h2>
@@ -50,14 +50,14 @@ const PlacementCompanies = () => {
               key={`${company.name}-${index}`}
               className="group"
             >
-              <div className="flex flex-col items-center space-y-3 p-6 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 hover:border-purple-500/50 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
+              <div className="flex flex-col items-center space-y-3 p-6 rounded-2xl bg-gradient-to-br from-gray-900 to-black border-2 border-red-500/30 hover:border-red-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-500/25">
                   <div className="h-16 w-32 mb-2 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                     <div className="text-5xl font-bold text-white opacity-80 group-hover:opacity-100 transition-opacity">
                       {company.name.charAt(0)}
                     </div>
                   </div>
                   <div className="text-center">
-                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">
+                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-red-500 group-hover:to-yellow-500 group-hover:bg-clip-text transition-all duration-300">
                       {company.name}
                     </h3>
                     <p className="text-sm text-gray-400">{company.sector}</p>
@@ -77,7 +77,7 @@ const PlacementCompanies = () => {
           ].map((stat, index) => (
             <div
               key={stat.label}
-              className="text-center p-6 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 hover:border-purple-500/50 transition-all duration-500 transform hover:scale-105"
+              className="text-center p-6 rounded-2xl bg-gradient-to-br from-gray-900 to-black border-2 border-red-500/30 hover:border-red-500 transition-all duration-500 transform hover:scale-105"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
@@ -90,7 +90,7 @@ const PlacementCompanies = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-2xl p-8 border border-purple-500/30">
+          <div className="bg-gradient-to-r from-gray-900/50 to-black/50 rounded-2xl p-8 border-2 border-red-500/30">
             <h3 className="text-3xl font-bold text-white mb-4">
               Ready to Join These Top Companies?
             </h3>
@@ -98,7 +98,17 @@ const PlacementCompanies = () => {
               Our proven placement process has helped thousands of students secure their dream jobs. 
               Be the next success story!
             </p>
-            <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105">
+            <button 
+              onClick={() => {
+                if ((window as any).openEnrollModal) {
+                  (window as any).openEnrollModal();
+                } else {
+                  const contactSection = document.getElementById('contact');
+                  contactSection?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="bg-gradient-to-r from-red-600 to-yellow-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-red-500/25 transition-all duration-300 transform hover:scale-105"
+            >
               Start Your Placement Journey
             </button>
           </div>
