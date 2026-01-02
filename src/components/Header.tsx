@@ -19,7 +19,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <img 
-              src="/IT_training-1.png" 
+              src="/IT_training-2.png" 
               alt="RedDot IT Training Logo" 
               className="h-12 w-auto sm:h-16 md:h-20"
               onError={(e) => {
