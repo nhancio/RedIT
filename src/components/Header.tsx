@@ -45,7 +45,7 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-sm text-gray-300">
               <Phone className="w-4 h-4" />
-              <a href="tel:+917095288950" className="hover:text-red-400 transition-colors">+91 70952 88950</a>
+              <a href="tel:+919652812978" className="hover:text-red-400 transition-colors">+91 96528 12978</a>
             </div>
             <div className="flex items-center space-x-2 text-sm text-gray-300">
               <Mail className="w-4 h-4" />
@@ -79,9 +79,9 @@ const Header = () => {
               </a>
             ))}
             <div className="pt-4 mt-4 border-t border-red-500/20 px-4 space-y-2">
-              <a href="tel:+917095288950" className="flex items-center space-x-2 text-sm text-gray-300 hover:text-red-400 transition-colors">
+              <a href="tel:+919652812978" className="flex items-center space-x-2 text-sm text-gray-300 hover:text-red-400 transition-colors">
                 <Phone className="w-4 h-4" />
-                <span>+91 70952 88950</span>
+                <span>+91 96528 12978</span>
               </a>
               <a href="mailto:info@reddotit.com" className="flex items-center space-x-2 text-sm text-gray-300 hover:text-red-400 transition-colors">
                 <Mail className="w-4 h-4" />

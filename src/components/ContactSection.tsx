@@ -54,7 +54,7 @@ const ContactSection = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+91 70952 88950'],
+      details: ['+91 96528 12978'],
       color: 'from-green-500 to-teal-500'
     },
     {
@@ -180,7 +180,7 @@ const ContactSection = () => {
                   </div>
                   {(isCallUs || isEmailUs) && (
                     <a
-                      href={isCallUs ? 'tel:+917095288950' : `mailto:${info.details[0]}`}
+                      href={isCallUs ? 'tel:+919652812978' : `mailto:${info.details[0]}`}
                       className={`w-full bg-gradient-to-r ${isCallUs ? 'from-green-600 to-teal-600' : 'from-blue-600 to-cyan-600'} text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-semibold hover:shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2`}
                     >
                       <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />

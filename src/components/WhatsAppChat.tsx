@@ -5,7 +5,7 @@ import EnrollModal from './EnrollModal';
 const WhatsAppChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEnrollOpen, setIsEnrollOpen] = useState(false);
-  const whatsappNumber = '7095288950'; // Updated to your actual WhatsApp number
+  const whatsappNumber = '9652812978'; // Updated to your actual WhatsApp number
   
   const predefinedMessages = [
     {
